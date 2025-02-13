@@ -12,47 +12,47 @@ namespace Bored50.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class ActivitiesController : ControllerBase
     {
-        private readonly UserContext _context;
+        private readonly AuthDbContext _context;
 
-        public UsersController(UserContext context)
+        public ActivitiesController(AuthDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/Activities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Activity>>> GetActivity()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Activity.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/Activities/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(long id)
+        public async Task<ActionResult<Activity>> GetActivity(long id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var activity = await _context.Activity.FindAsync(id);
 
-            if (user == null)
+            if (activity == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return activity;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Activities/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(long id, User user)
+        public async Task<IActionResult> PutActivity(long id, Activity activity)
         {
-            if (id != user.ID)
+            if (id != activity.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(activity).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace Bored50.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!ActivityExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace Bored50.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/Activities
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Activity>> PostActivity(Activity activity)
         {
-            _context.Users.Add(user);
+            _context.Activity.Add(activity);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.ID }, user);
+            return CreatedAtAction("GetActivity", new { id = activity.ID }, activity);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/Activities/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(long id)
+        public async Task<IActionResult> DeleteActivity(long id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var activity = await _context.Activity.FindAsync(id);
+            if (activity == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Activity.Remove(activity);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(long id)
+        private bool ActivityExists(long id)
         {
-            return _context.Users.Any(e => e.ID == id);
+            return _context.Activity.Any(e => e.ID == id);
         }
     }
 }

@@ -94,3 +94,19 @@
 
 Long term goles?
 Eisenhower matrix?
+
+
+## TODOs:
+[x] Login (use AspNetCore Identity package to avoid heavylifting yourself)
+[ ] Add activity
+[ ] 
+
+
+## Useful links:
+- https://learn.microsoft.com/en-us/ef/core/managing-schemas/
+- https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli
+
+## Useful commands:
+- `dotnet ef migrations add InitialCreate` Creates migration script named InitialCreate
+- `dotnet ef migrations add InitialCreate2` Creates migration script named InitialCreate2
+- `dotnet ef database update` Creates tables in db using migration scripts
